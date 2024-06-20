@@ -1,0 +1,24 @@
+/* src/Block.css */
+
+.block {
+    background-color: #C6F8C6; /* Este color de fondo puede ser opcional si tienes una imagen de fondo */
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: #000; /* Ajustar el color del texto */
+    height: 150px; /* Ajustar la altura  */
+    border: 1px solid #ccc; /* Opcional, para un borde */
+  }
+  
+  .block h2 {
+    z-index: 1; /* Para asegurarte de que el texto esté sobre la imagen de fondo */
+  }
+  
+  .block img {
+    display: none; /* Si no quieres mostrar la imagen que ya tienes en el bloque */
+  }
+  
