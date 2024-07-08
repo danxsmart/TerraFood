@@ -1,5 +1,10 @@
 /* src/Block.css */
-
+.block h2 {
+  font-family: 'Roboto', sans-serif;
+  color: #010800;
+  z-index: 1; /* Asegura que el texto esté sobre la imagen de fondo */
+  position: relative; /* Posicionamiento relativo para z-index funcionar */
+}
 .block {
     background-color: #C6F8C6; /* Este color de fondo puede ser opcional si tienes una imagen de fondo */
     padding: 20px;

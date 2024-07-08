@@ -1,0 +1,139 @@
+/* Estilo para el contenedor principal del login */
+.login-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background-color: #98FF98; /* Color de fondo de la pantalla */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Estilo para los bloques izquierdo y derecho */
+  .login-left, .login-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #C6F8C6; /* Color de fondo de ambos bloques */
+    max-width: 40%; /* Ajusta el ancho máximo de los bloques */
+    height: 80%; /* Ajusta la altura de los bloques */
+  }
+  
+  /* Estilo para la imagen */
+  .login-left img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
+  /* Estilo para el contenido del bloque derecho */
+  .login-right-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  /* Estilo para el encabezado */
+  .login-right h2 {
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para el formulario */
+  .login-right form {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  /* Estilo para los divs dentro del formulario */
+  .login-right form div {
+    margin-bottom: 15px;
+  }
+  
+  /* Estilo para las etiquetas */
+  .login-right form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  /* Estilo para los campos de entrada */
+  .login-right form input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  /* Estilo para los botones */
+  .login-right form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #FFA5B2; /* Color de fondo de los botones */
+    border: ridge;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .login-right form button:hover {
+    background-color: #fa7d90; /* Color de fondo de los botones al pasar el cursor */
+  }
+  
+  .forgot-password {
+    color: #9b9e9c; /* Color gris */
+    cursor: pointer;
+    font-size: 12px; /* Tamaño de texto más pequeño */
+  }
+  
+  .forgot-password:hover {
+    text-decoration: underline;
+  }
+  
+  /* Estilos personalizados para el modal */
+  .modal-header-custom {
+    background-color: #FFB6C1; /* Color de fondo del encabezado del modal */
+    color: #fff; /* Color del texto */
+  }
+  
+  .modal-body-custom {
+    background-color: #C6F8C6; /* Color de fondo del cuerpo del modal */
+  }
+  
+  .custom-button {
+    background-color: #FFA5B2; /* Color de fondo del botón */
+    border: none;
+    border-radius: 10px;
+  }
+  
+  .custom-button:hover {
+    background-color: #fa7d90; /* Color de fondo del botón al pasar el cursor */
+  }
+  
+  .modal-footer-custom {
+    background-color: #98FF98; /* Color de fondo del pie del modal */
+    text-align: center;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .login-left, .login-right {
+      flex: 0 0 100%; /* Ambos bloques ocupan el 100% del ancho en pantallas más pequeñas */
+      height: auto; /* Altura automática en pantallas más pequeñas */
+    }
+  
+    .login-left, .login-right-content {
+      max-width: 100%; /* Ajusta el ancho máximo de los bloques a 100% */
+    }
+  }
+  
+  .blq2 {
+    margin-top: 20px; /* Espacio superior para separar del formulario */
+    text-align: center; /* Centrar el texto */
+    color: #9b9e9c; /* Color del texto */
+  }
+  
+  .blq1{
+    margin-top: 20px; /* Espacio superior para separar del formulario */
+    text-align: center; /* Centrar el texto */
+  }
+  

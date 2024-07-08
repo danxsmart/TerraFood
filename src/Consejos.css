@@ -1,0 +1,67 @@
+/* src/Consejos.css */
+.consejos-container {
+  background-color: #98FF98;
+  padding: 40px;
+  border-radius: 10px;
+}
+
+.header {
+  background-color: #FFB6C1;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  height: 40px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.consejos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.consejo-card {
+  background-color: #C6F8C6;
+  width: 200px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-section {
+  margin-top: 20px;
+  background-color: #C6F8C6;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.input-field, .textarea-field {
+  width: 98%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submit-button {
+  background-color: #FFB6C1;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.footer {
+  margin-top: 60px;
+  text-align: center;
+  background-color: #98FF98; 
+}

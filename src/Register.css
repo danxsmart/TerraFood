@@ -1,0 +1,78 @@
+/* src/Register.css */
+/* Estilos para el componente de registro */
+
+.reg-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: #98FF98; /* Color de fondo de la pantalla */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo para los bloques izquierdo y derecho */
+.reg-centro {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #C6F8C6; /* Color de fondo de ambos bloques */
+  max-width: 40%; /* Ajusta el ancho máximo de los bloques */
+  height: 80%; /* Ajusta la altura de los bloques */
+}
+.reg-centro-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+
+/* Estilo para el formulario */
+.reg-centro form {
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Estilo para los divs dentro del formulario */
+.reg-centro form div {
+  margin-bottom: 15px;
+}
+
+/* Estilo para las etiquetas */
+.reg-centro form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Estilo para los campos de entrada */
+.reg-centro form input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* Estilo para los botones */
+.reg-centro form button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #FFA5B2; /* Color de fondo de los botones */
+  border: ridge;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.reg-centro form button:hover {
+  background-color: #fa7d90; /* Color de fondo de los botones al pasar el cursor */
+}
+
+.header {
+  background-color: #FFB6C1;
+  padding: 10px;
+  text-align: right;
+}
+
+
