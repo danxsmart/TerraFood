@@ -5,40 +5,72 @@ import './Login.css';
 import fondo from './img/fondo2.png';
 
 function Login() {
-  const [text, setUsuario] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({ usuario: '', correo: '' });
+  const [usu_mail, setEmail] = useState(''); // Estado para el email
+  const [usu_contra, setPassword] = useState(''); // Estado para la contraseña
+  const navigate = useNavigate(); // Hook para la navegación
+  const [showModal, setShowModal] = useState(false); // Estado para el modal de recuperación de contraseña
+  const [formData, setFormData] = useState({ correo: '' }); // Estado para los datos del formulario de recuperación
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (text === 'admin' && password === '1234') {
-      console.log('Inicio de sesión exitoso');
-      navigate('/main');
-    } else {
-      console.log('Credenciales incorrectas');
-      alert('Email o contraseña incorrectos');
+  // Maneja el envío del formulario de inicio de sesión
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
+    try {
+      // Realizar la solicitud al backend
+      const response = await fetch('/api/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usu_mail, usu_contra }),
+      });
+      const data = await response.json(); // Parsear la respuesta JSON
+  
+      if (response.ok) {
+        console.log('Inicio de sesión exitoso');
+        localStorage.setItem('token', data.token); // Almacenar el token en el almacenamiento local
+        navigate('/main'); // Navegar a la página principal
+      } else {
+        console.log('Credenciales incorrectas');
+        alert('Email o contraseña incorrectos');
+      }
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
     }
   };
 
   const RegistroClick = () => {
-    navigate('/register');
+    navigate('/register'); // Navegar a la página de registro
   };
 
-  const handleShow = () => setShowModal(true);
-  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true); // Mostrar el modal de recuperación
+  const handleClose = () => setShowModal(false); // Cerrar el modal de recuperación
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value }); // Actualizar el estado del formulario de recuperación
   };
 
-  const handleRecoverSubmit = (e) => {
+  // Maneja el envío del formulario de recuperación de contraseña
+  const handleRecoverSubmit = async (e) => {
     e.preventDefault();
-    // Aquí puedes agregar la lógica para enviar el correo de recuperación
-    console.log(formData);
-    handleClose();
+
+    try {
+      const response = await fetch('/api/users/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usu_mail: formData.correo }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert('Correo de restablecimiento de contraseña enviado');
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error('Error en la solicitud de restablecimiento de contraseña:', error);
+      alert('Hubo un problema al solicitar el restablecimiento de la contraseña');
+    }
+
+    handleClose(); // Cerrar el modal después de enviar la solicitud
   };
 
   return (
@@ -52,12 +84,12 @@ function Login() {
             <h2>BIENVENIDO!</h2>
           </div>
           <div>
-            <label>Usuario:</label>
+            <label>Correo:</label>
             <input
-              type="text"
-              value={text}
-              onChange={(e) => setUsuario(e.target.value)}
-              placeholder="@usuario"
+              type="email"
+              value={usu_mail}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="ejemplo@correo.com"
               required
             />
           </div>
@@ -65,7 +97,7 @@ function Login() {
             <label>Contraseña:</label>
             <input
               type="password"
-              value={password}
+              value={usu_contra}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="**************"
               required
@@ -88,17 +120,6 @@ function Login() {
         <Modal.Body className="modal-body-custom">
           <form onSubmit={handleRecoverSubmit}>
             <div className="form-group">
-              <label>Usuario</label>
-              <input
-                type="text"
-                name="usuario"
-                value={formData.usuario}
-                onChange={handleChange}
-                className="form-control"
-              />
-            </div>
-            <p className="text-center">o</p>
-            <div className="form-group">
               <label>Correo</label>
               <input
                 type="email"
@@ -106,6 +127,7 @@ function Login() {
                 value={formData.correo}
                 onChange={handleChange}
                 className="form-control"
+                required
               />
             </div>
             <Button variant="primary" type="submit" className="mt-3 custom-button">

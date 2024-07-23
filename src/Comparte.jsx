@@ -1,4 +1,3 @@
-// src/Comparte.jsx
 import React, { useState } from 'react';
 import './Comparte.css';
 import Footer from './Footer';
@@ -6,20 +5,48 @@ import Footer from './Footer';
 const Comparte = () => {
   const [ingredients, setIngredients] = useState([{ cantidad: '', unidad: '', ingrediente: '' }]);
   const [recipe, setRecipe] = useState({ nombre: '', tiempo: '', unidadTiempo: 'min', tipoComida: 'Entrada' });
+  const [filteredIngredientes, setFilteredIngredientes] = useState([]);
 
   const handleAddRow = () => {
     setIngredients([...ingredients, { cantidad: '', unidad: '', ingrediente: '' }]);
   };
 
-  const handleInputChange = (index, event) => {
+  const handleInputChange = (index, e) => {
     const values = [...ingredients];
-    values[index][event.target.name] = event.target.value;
+    values[index][e.target.name] = e.target.value;
     setIngredients(values);
+
+    if (e.target.name === 'ingrediente') {
+      fetchIngredientes(e.target.value);
+    }
   };
 
-  const handleRecipeChange = (event) => {
-    const { name, value } = event.target;
+  const handleRecipeChange = (e) => {
+    const { name, value } = e.target;
     setRecipe({ ...recipe, [name]: value });
+  };
+
+  const fetchIngredientes = async (query) => {
+    if (!query) {
+      setFilteredIngredientes([]);
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/ingredients/search?q=${query}`);
+      const data = await response.json();
+      const ingredients = data.map(ingredient => ingredient.tipo_ing_nom);
+      setFilteredIngredientes(ingredients);
+    } catch (error) {
+      console.error('Error al obtener los ingredientes:', error);
+    }
+  };
+
+  const handleAutocompleteClick = (index, value) => {
+    const values = [...ingredients];
+    values[index].ingrediente = value;
+    setIngredients(values);
+    setFilteredIngredientes([]);
   };
 
   return (
@@ -37,6 +64,7 @@ const Comparte = () => {
                   <th>Cantidad</th>
                   <th>Unidad medida</th>
                   <th>Ingredientes</th>
+                  <th>Categoria</th>
                 </tr>
               </thead>
               <tbody>
@@ -47,14 +75,14 @@ const Comparte = () => {
                         type="text"
                         name="cantidad"
                         value={ingredient.cantidad}
-                        onChange={(event) => handleInputChange(index, event)}
+                        onChange={(e) => handleInputChange(index, e)}
                       />
                     </td>
                     <td>
                       <select
                         name="unidad"
                         value={ingredient.unidad}
-                        onChange={(event) => handleInputChange(index, event)}
+                        onChange={(e) => handleInputChange(index, e)}
                       >
                         <option value="">Seleccionar</option>
                         <option value="ml">Mililitros (ml)</option>
@@ -73,13 +101,34 @@ const Comparte = () => {
                         <option value="dientes">Dientes (dientes)</option>
                       </select>
                     </td>
-                    <td>
+                    <td style={{ position: 'relative' }}>
                       <input
                         type="text"
                         name="ingrediente"
                         value={ingredient.ingrediente}
-                        onChange={(event) => handleInputChange(index, event)}
+                        onChange={(e) => handleInputChange(index, e)}
                       />
+                      {ingredients[index].ingrediente && filteredIngredientes.length > 0 && (
+                        <ul className="autocomplete-list">
+                          {filteredIngredientes.map((ingrediente, i) => (
+                            <li key={i} onClick={() => handleAutocompleteClick(index, ingrediente)}>
+                              {ingrediente}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </td>
+                    <td>
+                      <select
+                        name="categoria"
+                        value={ingredient.categoria}
+                        onChange={(e) => handleInputChange(index, e)}
+                      >
+                        <option value="">Seleccionar</option>
+                        <option value="proteinas">Proteínas</option>
+                        <option value="carbohidratos">Carbohidratos</option>
+                        <option value="grasas">Grasas</option>
+                      </select>
                     </td>
                   </tr>
                 ))}

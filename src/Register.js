@@ -1,4 +1,3 @@
-// src/Register.js
 import React, { useState } from 'react';
 import './Register.css';
 
@@ -8,19 +7,33 @@ function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      alert('Las contraseñas no coinciden');
       return;
     }
-    console.log('Usuario:', text); // Cambiado a log de Usuario
-    console.log('Email:', email);
-    console.log('Password:', password);
+
+    try {
+      const response = await fetch('/api/users/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usu_nombre: text, usu_mail: email, usu_contra: password }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert('Usuario registrado con éxito');
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error('Error en el registro:', error);
+      alert('Hubo un problema al registrar el usuario');
+    }
   };
 
   return (
-
     <div className="reg-container">
       <div className="header">Registro de Usuario</div>
       <div className="reg-centro">
@@ -74,6 +87,5 @@ function Register() {
     </div>
   );
 }
-
 
 export default Register;
